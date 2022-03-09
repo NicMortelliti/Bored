@@ -1,8 +1,31 @@
 // TODO Define constant variable arrays here that will be used for the selection drop downs
-// typeOptions = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
-// participantOptions = [0, 1, 2, 3, "4+"]
-// priceOptions = ["Free!", "I'm willing to pay"] <-- "willing to pay" will also include free options
-// allOptionArrays = [typeOptions, participantOptions, priceOptions]
+const typeOptions = {
+  id: "activityTypeSelect",
+  options: [
+    "education",
+    "recreational",
+    "social",
+    "diy",
+    "charity",
+    "cooking",
+    "relaxation",
+    "music",
+    "busywork",
+  ],
+};
+
+const participantOptions = {
+  id: "numberOfPeopleSelect",
+  options: [0, 1, 2, 3, "4+"],
+};
+
+// "willing to pay" will also include free options
+const priceOptions = {
+  id: "priceSelect",
+  options: ["Free!", "I'm willing to pay"],
+};
+
+const allOptionArrays = [typeOptions, participantOptions, priceOptions];
 
 document.addEventListener("DOMContentLoaded", function () {
   const elems = document.querySelectorAll("select");
@@ -10,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // TODO forEach loop for allOptionArrays
   //  - Call populateOptions, passing in each array and the target dropdown menu id
+  allOptionArrays.forEach(selectionArray => {
+    populateOptions(selectionArray.id, selectionArray.options);
+  });
 
   // TODO Add event listener for Submit button
   // const selectionsObject = gatherOptions function
@@ -18,10 +44,21 @@ document.addEventListener("DOMContentLoaded", function () {
   // - Call fetchGet, passing in selectionsObject
 });
 
-// TODO Function populateOptions(array, optionMenuId)
-// Takes 2 arguments (array, target dropdown menu id)
+// TODO Function populateOptions(optionMenuId, array)
 // forEach loop through array, adding each option to specified dropdown
 // Return nothing
+function populateOptions(id, selectionArray) {
+  // For each element in array, create an object and append to appropriate drop down (based on id)
+  selectionArray.forEach(element => {
+    let dropdown = document.getElementById(id);
+    let obj = document.createElement("object");
+
+    obj.textContent = element;
+    obj.setAttribute("value", selectionArray.indexOf(element) + 1);
+
+    dropdown.appendChild(obj);
+  });
+}
 
 // TODO Function gatherOptions()
 // Takes no arguments
