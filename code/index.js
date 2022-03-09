@@ -4,9 +4,6 @@
 // priceOptions = ["Free!", "I'm willing to pay"] <-- "willing to pay" will also include free options
 // allOptionArrays = [typeOptions, participantOptions, priceOptions]
 
-// TODO Define constant variable that will contain the API message boilerplate configuration
-// const messageConfig = 
-
 document.addEventListener("DOMContentLoaded", function () {
   const elems = document.querySelectorAll("select");
   const instance = M.FormSelect.init(elems);
@@ -37,3 +34,17 @@ document.addEventListener("DOMContentLoaded", function () {
 // }
 
 // TODO Function fetchGet(objectOfSelections)
+
+// TODO Function to create a config object for API communication
+function constructRequest(httpVerb) {
+  return {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+
+    // TODO Update body
+    body: "placeholder" /* Your data goes here */,
+  };
+}
