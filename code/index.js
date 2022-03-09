@@ -28,8 +28,8 @@ const priceOptions = {
 const allOptionArrays = [typeOptions, participantOptions, priceOptions];
 
 document.addEventListener("DOMContentLoaded", function () {
-  const elems = document.querySelectorAll("select");
-  const instance = M.FormSelect.init(elems);
+  // const elems = document.querySelectorAll("select");
+  // var instances = M.FormSelect.init(elems);
 
   // TODO forEach loop for allOptionArrays
   //  - Call populateOptions, passing in each array and the target dropdown menu id
@@ -49,20 +49,18 @@ document.addEventListener("DOMContentLoaded", function () {
 // Return nothing
 function populateOptions(id, selectionArray) {
   // For each element in array, create an object and append to appropriate drop down (based on id)
-  selectionArray.forEach(element => {
-    let dropdown = document.getElementById(id);
-    let obj = document.createElement("object");
+  console.log(selectionArray);
+  var options = { dropdownOptions: { selectionArray } };
+  const dropdown = document.getElementById(id);
 
-    obj.textContent = element;
-    obj.setAttribute("value", selectionArray.indexOf(element) + 1);
+  var instances = M.FormSelect.init(dropdown, options);
 
-    dropdown.appendChild(obj);
-  });
+  // var instances = M.dropdown.init(dropdown, selectionArray);;
 }
 
 // TODO Function gatherOptions()
 // Takes no arguments
-// getelementbyID for each of the dropdown option menus
+// getElementbyID for each of the dropdown option menus
 // - Gather the current selection of each dropdown
 // Return selected options in an object as follows:
 // {  type: ${typeSelection},
