@@ -40,8 +40,8 @@
 
       <!-- Activity Type Selection -->
       <div class="row">
-        <div class="rowcol s12">
-          <div class="input-field col s12" name="activityTypeMenu">
+        <div class="col s12">
+          <div class="input-field col s6 offset-s3" name="activityTypeMenu">
             <select id="activityTypeSelect">
               <option value="" disabled selected>Choose Activity Type</option>
               <option value="education">Educational</option>
@@ -61,8 +61,8 @@
 
       <!-- Number of Participants Selection -->
       <div class="row">
-        <div class="col s12">      
-          <div class="input-field col s12" name="numberOfPeopleMenu">
+        <div class="col s12">
+          <div class="input-field col s6 offset-s3" name="numberOfPeopleMenu">
             <select id="numberOfPeopleSelect">
               <option value="" disabled selected>How many people?</option>
               <option value=1>1</option>
@@ -78,36 +78,39 @@
 
       <!-- Price Selection -->
       <div class="row">
-        <div class="col s12">
+        <div class="col s6 right-align">
           <form action="#">
             <p>
               <label for="priceCheck">
-                <input type="checkbox" class="filled-in" name="priceCheckBox" id="priceCheck">
+                <input type="checkbox" checked="checked" class="filled-in" name="priceCheckBox" id="priceCheck">
                 <span>Free results only?</span>
               </label>
             </p>
           </form>
         </div>
-      </div>
-
-      <!-- Center the button on page -->
-      <div class="center-align">
-        <button
-          id="submitBtn"
-          class="btn waves-effect waves-light"
-          type="submit"
-          name="action"
-        >
-          Submit
-          <i class="material-icons right">send</i>
-        </button>
+        <!-- Center the button on page -->
+        <div class="col s6">
+          <button
+            id="submitBtn"
+            class="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>      
       </div>
 
       <!-- TODO Centered label to display activity returned by API. Default string is "" -->
       <!-- Activity string -->
       <!-- 'flow-text' class allows for smooth text size and line height scaling -->
       <!-- Default string is empty until we get an activity back from the API -->
-      <h4 id="activityString" class="center-align"></>
+      <div class="divider hide"></div>
+      <div id="activityDivider" class="section">
+        <h6 id="activityLabel" class="center-align"></h6>
+        <h4 id="activityString" class="center-align"></>
+      </div>
 
       <!--JQeury Initializer for Materialize select menus  -->
       <script>

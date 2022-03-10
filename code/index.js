@@ -41,12 +41,19 @@ function fetchGet(objOfSelections) {
 }
 
 function respHandler(apiResponseJson) {
+  const activityDivider = document.getElementById("activityDivider");
+  const activityLabel = document.getElementById("activityLabel");
   const activityString = document.getElementById("activityString");
 
+  console.log(apiResponseJson);
+
   if (apiResponseJson === "error") {
+    activityLabel.textContent = "";
     activityString.textContent =
       "I'm sorry, I didn't find anything. Try adjusting your search criteria.";
   }
 
-  activityString.textContent = apiResponseJson.activity;
+  activityDivider.setAttribute("class", "divider");
+  activityLabel.textContent = "Here's an idea: ";
+  activityString.textContent = `${apiResponseJson.activity}.`;
 }
