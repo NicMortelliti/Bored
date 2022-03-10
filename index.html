@@ -35,33 +35,46 @@
     <!-- Label for "Let's find you something to do" -->
     <h5>Let's find you something to do...</h5>
 
-    <!-- TODO Div that contains "Activity Type:" label and drop down menu with placeholder field -->
-    <!-- We'll use JS to populate the fields -->
+    <!-- Activity Type Selection -->
     <div class="input-field col s12" name="activityTypeMenu">
       <select id="activityTypeSelect">
-        <option value="" disabled selected></option>
-        <option value="1">Option 1</option>
+        <option value="" disabled selected>Choose Activity Type</option>
+        <option value="education">Educational</option>
+        <option value="recreation">Recreational</option>
+        <option value="social">Social</option>
+        <option value="diy">DIY</option>
+        <option value="charity">Charity</option>
+        <option value="cooking">Cooking</option>
+        <option value="relaxation">Relaxation</option>
+        <option value="music">Music</option>
+        <option value="busywork">Busywork</option>
       </select>
       <label>Activity Type: </label>
     </div>
 
-    <!-- TODO Div that contains "Number of people:" label and drop down menu with placeholder field -->
-    <!-- We'll use JS to populate the fields -->
+    <!-- Number of Participants Selection -->
     <div class="input-field col s12" name="numberOfPeopleMenu">
       <select id="numberOfPeopleSelect">
-        <option value="" disabled selected></option>
+        <option value="" disabled selected>How many people?</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5+</option>
       </select>
       <label>Number of People: </label>
     </div>
 
     <!-- TODO Div that contains "Price:" label and drop down menu with placeholder field -->
-    <!-- We'll use JS to populate the fields -->
-    <div class="input-field col s12" name="priceSelectMenu">
-      <select id="priceSelect">
-        <option value="" disabled selected></option>
-      </select>
-      <label>Price: </label>
-    </div>
+    <!-- Price Selection -->
+    <form action="#">
+      <p>
+        <label for="priceCheck">
+          <input type="checkbox" class="filled-in" name="priceCheckBox" id="priceCheck">
+          <span>Free results only?</span>
+        </label>
+      </p>
+    </form>
 
     <!-- TODO Submit button -->
     <!-- Center the button on page -->
@@ -82,6 +95,13 @@
     <!-- Default string is empty until we get an activity back from the API -->
     <p id="activityString" class="flow-text"></p>
 
+     <!--JQeury Initializer for Materialize select menus  -->
+    <script>
+    $(document).ready(function(){
+      $('select').formSelect();
+    });
+    
+    </script>
     <!-- Path to JavaScript -->
     <script src="code/index.js"></script>
   </body>

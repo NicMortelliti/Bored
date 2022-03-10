@@ -1,85 +1,52 @@
-// TODO Define constant variable arrays here that will be used for the selection drop downs
-const typeOptions = {
-  id: "activityTypeSelect",
-  options: [
-    "education",
-    "recreational",
-    "social",
-    "diy",
-    "charity",
-    "cooking",
-    "relaxation",
-    "music",
-    "busywork",
-  ],
-};
-
-const participantOptions = {
-  id: "numberOfPeopleSelect",
-  options: [0, 1, 2, 3, "4+"],
-};
-
-// "willing to pay" will also include free options
-const priceOptions = {
-  id: "priceSelect",
-  options: ["Free!", "I'm willing to pay"],
-};
-
-const allOptionArrays = [typeOptions, participantOptions, priceOptions];
+// API URL
+let url = "https://www.boredapi.com/api/activity?";
 
 document.addEventListener("DOMContentLoaded", function () {
-  // const elems = document.querySelectorAll("select");
-  // var instances = M.FormSelect.init(elems);
-
-  // TODO forEach loop for allOptionArrays
-  //  - Call populateOptions, passing in each array and the target dropdown menu id
-  allOptionArrays.forEach(selectionArray => {
-    populateOptions(selectionArray.id, selectionArray.options);
-  });
-
-  // TODO Add event listener for Submit button
-  // const selectionsObject = gatherOptions function
-
-  // TODO Send 'selections' to fetchGet function
-  // - Call fetchGet, passing in selectionsObject
+  // TODO disable submit button until selections are made
+  const submitBtn = document.getElementById("submitBtn");
+  submitBtn.addEventListener("click", gatherSelections);
 });
 
-// TODO Function populateOptions(optionMenuId, array)
-// forEach loop through array, adding each option to specified dropdown
-// Return nothing
-function populateOptions(id, selectionArray) {
-  // For each element in array, create an object and append to appropriate drop down (based on id)
-  console.log(selectionArray);
-  var options = { dropdownOptions: { selectionArray } };
-  const dropdown = document.getElementById(id);
+// Takes no arguments
+function gatherSelections() {
+  const type = document.getElementById("activityTypeSelect");
+  const participants = document.getElementById("numberOfPeopleSelect");
+  const price = document.getElementById("priceCheck");
 
-  var instances = M.FormSelect.init(dropdown, options);
+  // Convert price checkbox value from true/false to 1/0
+  let priceBinary = 0;
+  if (price.checked === true) {
+    priceBinary = 1;
+  }
 
-  // var instances = M.dropdown.init(dropdown, selectionArray);;
+  // Call fetchGet function passing in object of user selections
+  fetchGet({
+    type: type.value,
+    participants: participants.value,
+    price: priceBinary,
+  });
 }
 
-// TODO Function gatherOptions()
-// Takes no arguments
-// getElementbyID for each of the dropdown option menus
-// - Gather the current selection of each dropdown
-// Return selected options in an object as follows:
-// {  type: ${typeSelection},
-//    participants: ${participantsSelection}
-//    price: ${priceSelection}
-// }
+function fetchGet(objOfSelections) {
+  const type = `type=${objOfSelections.type}`;
+  const participants = `participants=${objOfSelections.participants}`;
+  const price = `price=${objOfSelections.price}`;
 
-// TODO Function fetchGet(objectOfSelections)
+  console.log(`Sent: ${url}${type}&${participants}&${price}`);
 
-// TODO Function to create a config object for API communication
-function constructRequest(httpVerb) {
-  return {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
+  fetch(`${url}${type}&${participants}&${price}`)
+    .then(resp => resp.json())
+    .then(json => respHandler(json))
+    .catch(respHandler("error"));
+}
 
-    // TODO Update body
-    body: "placeholder" /* Your data goes here */,
-  };
+function respHandler(apiResponseJson) {
+  const activityString = document.getElementById("activityString");
+
+  if (apiResponseJson === "error") {
+    activityString.textContent =
+      "I'm sorry, I didn't find anything. Try adjusting your search criteria.";
+  }
+
+  activityString.textContent = apiResponseJson.activity;
 }
