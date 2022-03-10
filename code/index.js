@@ -14,9 +14,9 @@ function gatherSelections() {
   const price = document.getElementById("priceCheck");
 
   // Convert price checkbox value from true/false to 1/0
-  let priceBinary = 0;
+  let priceBinary = 1;
   if (price.checked === true) {
-    priceBinary = 1;
+    priceBinary = 0;
   }
 
   // Call fetchGet function passing in object of user selections
@@ -31,13 +31,16 @@ function fetchGet(objOfSelections) {
   const type = `type=${objOfSelections.type}`;
   const participants = `participants=${objOfSelections.participants}`;
   const price = `price=${objOfSelections.price}`;
+  const completeUrl = `${url}${type}&${participants}&${price}`;
 
-  console.log(`Sent: ${url}${type}&${participants}&${price}`);
+  console.log(completeUrl);
 
-  fetch(`${url}${type}&${participants}&${price}`)
+  fetch(completeUrl)
     .then(resp => resp.json())
-    .then(json => respHandler(json))
-    .catch(respHandler("error"));
+    .then(json => respHandler(json));
+  // ! Figure out why error pops up even when the response is valid
+  // .catch(error => {
+  //   alert(`Sorry, that didn't work.\n\n${error}`);
 }
 
 function respHandler(apiResponseJson) {
@@ -45,15 +48,23 @@ function respHandler(apiResponseJson) {
   const activityLabel = document.getElementById("activityLabel");
   const activityString = document.getElementById("activityString");
 
-  console.log(apiResponseJson);
+  console.log(Object.keys(apiResponseJson));
 
-  if (apiResponseJson === "error") {
+  // Display divider regardless of valid or invalid response from API.
+  // Because we'll show either the valid activity, or a message saying
+  // an activity wasn't found with that search criteria.
+  activityDivider.setAttribute("class", "divider");
+
+  // Not doing a string comparison here because we are comparing a string to an object key
+  if ("error" == Object.keys(apiResponseJson)) {
+    console.log("that's an error");
+
+    // Empty the activity label string when no activities were found.
     activityLabel.textContent = "";
     activityString.textContent =
       "I'm sorry, I didn't find anything. Try adjusting your search criteria.";
+  } else {
+    activityLabel.textContent = "Here's an idea: ";
+    activityString.textContent = `${apiResponseJson.activity}.`;
   }
-
-  activityDivider.setAttribute("class", "divider");
-  activityLabel.textContent = "Here's an idea: ";
-  activityString.textContent = `${apiResponseJson.activity}.`;
 }
