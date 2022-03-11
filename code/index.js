@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   submitBtn.addEventListener("click", gatherSelections);
 });
 
-// Takes no arguments
+// Collect user selections into object
 function gatherSelections() {
   const type = document.getElementById("activityTypeSelect");
   const participants = document.getElementById("numberOfPeopleSelect");
@@ -27,13 +27,12 @@ function gatherSelections() {
   });
 }
 
+// Send request to API
 function fetchGet(objOfSelections) {
   const type = `type=${objOfSelections.type}`;
   const participants = `participants=${objOfSelections.participants}`;
   const price = `price=${objOfSelections.price}`;
   const completeUrl = `${url}${type}&${participants}&${price}`;
-
-  console.log(completeUrl);
 
   fetch(completeUrl)
     .then(resp => resp.json())
@@ -43,12 +42,13 @@ function fetchGet(objOfSelections) {
   //   alert(`Sorry, that didn't work.\n\n${error}`);
 }
 
+// Handle Response from API
 function respHandler(apiResponseJson) {
   const activityDivider = document.getElementById("activityDivider");
   const activityLabel = document.getElementById("activityLabel");
   const activityString = document.getElementById("activityString");
 
-  console.log(Object.keys(apiResponseJson));
+  console.log(apiResponseJson);
 
   // Display divider regardless of valid or invalid response from API.
   // Because we'll show either the valid activity, or a message saying
@@ -57,13 +57,14 @@ function respHandler(apiResponseJson) {
 
   // Not doing a string comparison here because we are comparing a string to an object key
   if ("error" == Object.keys(apiResponseJson)) {
-    console.log("that's an error");
-
     // Empty the activity label string when no activities were found.
     activityLabel.textContent = "";
     activityString.textContent =
       "I'm sorry, I didn't find anything. Try adjusting your search criteria.";
-  } else {
+  } else if (apiResponseJson.link != ""){
+      activityLabel.textContent = "Here's an idea: ";
+      activityString.innerHTML = `<a href=${apiResponseJson.link}>${apiResponseJson.activity}.</a>`;
+  }else{
     activityLabel.textContent = "Here's an idea: ";
     activityString.textContent = `${apiResponseJson.activity}.`;
   }
