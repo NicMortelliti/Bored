@@ -1,13 +1,14 @@
 // API URL
 let url = "https://www.boredapi.com/api/activity?";
 
+// Wait for DOM to fully load before executing JS
 document.addEventListener("DOMContentLoaded", function () {
-  // TODO disable submit button until selections are made
   const submitBtn = document.getElementById("submitBtn");
   submitBtn.addEventListener("click", gatherSelections);
 });
 
-// Collect user selections into object
+// Collect user selections into an object.
+// Then pass into fetchGet function.
 function gatherSelections() {
   const type = document.getElementById("activityTypeSelect");
   const participants = document.getElementById("numberOfPeopleSelect");
@@ -38,7 +39,8 @@ function fetchGet(objOfSelections) {
     .then(resp => resp.json())
     .then(json => respHandler(json))
     .catch(error => {
-      alert(`Sorry, that didn't work.\n\n${error}`)});
+      alert(`Sorry, that didn't work.\n\n${error}`);
+    });
 }
 
 // Handle Response from API
@@ -57,7 +59,7 @@ function respHandler(apiResponseJson) {
     // Show alert message if API was unable to find an activity with
     // current search criteria.
     alert(
-      "Sorry, I couldnt' find anything. Try adjusting your search criteria."
+      "Sorry, I couldn't find anything. Try adjusting your search criteria."
     );
   } else {
     // Display divider regardless of valid or invalid response from API.
