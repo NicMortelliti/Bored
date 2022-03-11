@@ -17,6 +17,7 @@ The _Bored?_ application contains the following features:
   - Number of people selector
   - Free activities checkbox
 - Large text string that prominently displays the currently suggested activity.
+- If a link is provided by the API, the currently suggested activity will be presented as a hyperlink.
 - Activity history list (up to 5 recently displayed activities).
 - Alert message when current search criteria returns no activities from the API.
 
