@@ -26,12 +26,11 @@
   <body>
     <!-- Nav bar -->
     <nav>
-      <div class="nav-wrapper">
+      <div class="nav-wrapper teal">
         <a href="#" class="brand-logo center">Bored?</a>
       </div>
     </nav>
 
-    
     <div class="container">
       <!-- Label for "Let's find you something to do" -->
       <div class="center-align">
@@ -102,13 +101,20 @@
         </div>      
       </div>
 
-      <!-- TODO Centered label to display activity returned by API. Default string is "" -->
       <!-- Activity string -->
       <!-- 'flow-text' class allows for smooth text size and line height scaling -->
       <!-- Default string is empty until we get an activity back from the API -->
       <div id="activityDivider" class="divider hide"></div>
       <h6 id="activityLabel" class="center-align"></h6>
       <h4 id="activityString" class="center-align"></h4>
+
+      <!-- List of previous activity ideas -->
+      <div id="prevActivityDivider" class="divider hide"></div>
+      <p id="prevActivityString1" class="center-align"></p>
+      <p id="prevActivityString2" class="center-align"></p>
+      <p id="prevActivityString3" class="center-align"></p>
+      <p id="prevActivityString4" class="center-align"></p>
+      <p id="prevActivityString5" class="center-align"></p>
 
       <!--JQeury Initializer for Materialize select menus  -->
       <script>

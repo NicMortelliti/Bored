@@ -36,10 +36,9 @@ function fetchGet(objOfSelections) {
 
   fetch(completeUrl)
     .then(resp => resp.json())
-    .then(json => respHandler(json));
-  // ! Figure out why error pops up even when the response is valid
-  // .catch(error => {
-  //   alert(`Sorry, that didn't work.\n\n${error}`);
+    .then(json => respHandler(json))
+    .catch(error => {
+      alert(`Sorry, that didn't work.\n\n${error}`)});
 }
 
 // Handle Response from API
@@ -47,25 +46,42 @@ function respHandler(apiResponseJson) {
   const activityDivider = document.getElementById("activityDivider");
   const activityLabel = document.getElementById("activityLabel");
   const activityString = document.getElementById("activityString");
-
-  console.log(apiResponseJson);
-
-  // Display divider regardless of valid or invalid response from API.
-  // Because we'll show either the valid activity, or a message saying
-  // an activity wasn't found with that search criteria.
-  activityDivider.setAttribute("class", "divider");
+  const prevActivityString1 = document.getElementById("prevActivityString1");
+  const prevActivityString2 = document.getElementById("prevActivityString2");
+  const prevActivityString3 = document.getElementById("prevActivityString3");
+  const prevActivityString4 = document.getElementById("prevActivityString4");
+  const prevActivityString5 = document.getElementById("prevActivityString5");
 
   // Not doing a string comparison here because we are comparing a string to an object key
   if ("error" == Object.keys(apiResponseJson)) {
-    // Empty the activity label string when no activities were found.
-    activityLabel.textContent = "";
-    activityString.textContent =
-      "I'm sorry, I didn't find anything. Try adjusting your search criteria.";
-  } else if (apiResponseJson.link != ""){
-      activityLabel.textContent = "Here's an idea: ";
-      activityString.innerHTML = `<a href=${apiResponseJson.link}>${apiResponseJson.activity}.</a>`;
-  }else{
+    // Show alert message if API was unable to find an activity with
+    // current search criteria.
+    alert(
+      "Sorry, I couldnt' find anything. Try adjusting your search criteria."
+    );
+  } else {
+    // Display divider regardless of valid or invalid response from API.
+    // Because we'll show either the valid activity, or a message saying
+    // an activity wasn't found with that search criteria.
+    activityDivider.setAttribute("class", "divider");
+    prevActivityDivider.setAttribute("class", "divider");
+
+    // Display label for activity string
     activityLabel.textContent = "Here's an idea: ";
-    activityString.textContent = `${apiResponseJson.activity}.`;
+
+    // Update previous activity list
+    prevActivityString5.innerHTML = prevActivityString4.innerHTML;
+    prevActivityString4.innerHTML = prevActivityString3.innerHTML;
+    prevActivityString3.innerHTML = prevActivityString2.innerHTML;
+    prevActivityString2.innerHTML = prevActivityString1.innerHTML;
+    prevActivityString1.innerHTML = activityString.innerHTML;
+
+    // If a link is returned with the API results make the
+    // activity string a URL.
+    if (apiResponseJson.link != "") {
+      activityString.innerHTML = `<a href=${apiResponseJson.link}>${apiResponseJson.activity}.</a>`;
+    } else {
+      activityString.textContent = `${apiResponseJson.activity}.`;
+    }
   }
 }
