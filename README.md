@@ -35,4 +35,6 @@ The _Bored?_ application requires no installation. It simply needs to be downloa
 2. Select the number of people that will be participating in this activity from the **Number of People** drop down menu ("Any" is the default selection).
 3. Select whether you would like to be shown free events or paid events with the **Free activities only?** checkbox.
 4. Click the **Submit** button.
+<p align="center"><img src="Resources/submit.gif" alt="Submit gif" width="500" height="500"></p>
 5. To clear the history list, click the **Clear** button (only displayed when the history list is populated with at least one activity).
+<p align="center"><img src="Resources/clear.gif" alt="Submit gif" width="500" height="500"></p>
