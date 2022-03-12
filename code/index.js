@@ -99,7 +99,6 @@ function respHandler(apiResponseJson) {
   }
 }
 
-// TODO Add a "Clear" button to bottom of history list that will clear the list
 // Add clear button to history list through DOM manipulation
 function addClearBtn() {
   newBtn = document.createElement("a");
