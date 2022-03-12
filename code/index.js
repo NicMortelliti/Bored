@@ -88,14 +88,14 @@ function respHandler(apiResponseJson) {
     ) {
       addClearBtn();
     }
-  }
 
-  // If a link is returned with the API results make the
-  // activity string a URL.
-  if (apiResponseJson.link != "") {
-    activityString.innerHTML = `<a href=${apiResponseJson.link}>${apiResponseJson.activity}.</a>`;
-  } else {
-    activityString.textContent = `${apiResponseJson.activity}.`;
+    // If a link is returned with the API results make the
+    // activity string a URL.
+    if (apiResponseJson.link != "") {
+      activityString.innerHTML = `<a href=${apiResponseJson.link}>${apiResponseJson.activity}.</a>`;
+    } else {
+      activityString.textContent = `${apiResponseJson.activity}.`;
+    }
   }
 }
 
