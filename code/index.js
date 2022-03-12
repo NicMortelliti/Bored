@@ -78,12 +78,51 @@ function respHandler(apiResponseJson) {
     prevActivityString2.innerHTML = prevActivityString1.innerHTML;
     prevActivityString1.innerHTML = activityString.innerHTML;
 
-    // If a link is returned with the API results make the
-    // activity string a URL.
-    if (apiResponseJson.link != "") {
-      activityString.innerHTML = `<a href=${apiResponseJson.link}>${apiResponseJson.activity}.</a>`;
-    } else {
-      activityString.textContent = `${apiResponseJson.activity}.`;
+    // Only display Clear button if the history list is populated
+    // with at least one string.
+    if (
+      prevActivityString1.innerHTML !== "" &&
+      prevActivityString2.innerHTML === ""
+    ) {
+      addClearBtn();
     }
   }
+
+  // If a link is returned with the API results make the
+  // activity string a URL.
+  if (apiResponseJson.link != "") {
+    activityString.innerHTML = `<a href=${apiResponseJson.link}>${apiResponseJson.activity}.</a>`;
+  } else {
+    activityString.textContent = `${apiResponseJson.activity}.`;
+  }
+}
+
+// TODO Add a "Clear" button to bottom of history list that will clear the list
+// Add clear button to history list through DOM manipulation
+function addClearBtn() {
+  newBtn = document.createElement("a");
+  newBtn.setAttribute(
+    "class",
+    "waves-effect waves-light btn-small"
+  );
+  newBtn.textContent = "Clear";
+  document.getElementById("activityList").appendChild(newBtn);
+
+  // Add event listener to button
+  newBtn.addEventListener("click", () => {
+    return clearClick([
+      prevActivityString1,
+      prevActivityString2,
+      prevActivityString3,
+      prevActivityString4,
+      prevActivityString5,
+      newBtn,
+    ]);
+  });
+}
+
+// Clear history list
+function clearClick(historyStringArray) {
+  historyStringArray.forEach(string => (string.innerHTML = ""));
+  newBtn.remove();
 }
