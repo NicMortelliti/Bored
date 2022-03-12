@@ -3,8 +3,10 @@ let url = "https://www.boredapi.com/api/activity?";
 
 // Wait for DOM to fully load before executing JS
 document.addEventListener("DOMContentLoaded", function () {
-  const submitBtn = document.getElementById("submitBtn");
-  submitBtn.addEventListener("click", gatherSelections);
+  // Add event listener to submit button
+  document
+    .getElementById("submitBtn")
+    .addEventListener("click", gatherSelections);
 });
 
 // Collect user selections into an object.
@@ -101,10 +103,7 @@ function respHandler(apiResponseJson) {
 // Add clear button to history list through DOM manipulation
 function addClearBtn() {
   newBtn = document.createElement("a");
-  newBtn.setAttribute(
-    "class",
-    "waves-effect waves-light btn-small"
-  );
+  newBtn.setAttribute("class", "waves-effect waves-light btn-small");
   newBtn.textContent = "Clear";
   document.getElementById("activityList").appendChild(newBtn);
 
