@@ -107,20 +107,17 @@ function addClearBtn() {
   document.getElementById("activityList").appendChild(newBtn);
 
   // Add event listener to button
-  newBtn.addEventListener("click", () => {
-    return clearClick([
-      prevActivityString1,
-      prevActivityString2,
-      prevActivityString3,
-      prevActivityString4,
-      prevActivityString5,
-      newBtn,
-    ]);
-  });
+  newBtn.addEventListener("click", () => clearClick());
 }
 
 // Clear history list
-function clearClick(historyStringArray) {
-  historyStringArray.forEach(string => (string.innerHTML = ""));
+function clearClick() {
+  // Put all strings from history list into an array
+  allPrevActivityStrings = document.querySelectorAll(".prevActivityStrings");
+
+  // Iterate through array, setting innerHTML to blank for each one, clearing the list.
+  allPrevActivityStrings.forEach(element => {
+    element.innerHTML = "";
+  });
   newBtn.remove();
 }
